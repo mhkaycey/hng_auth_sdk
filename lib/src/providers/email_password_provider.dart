@@ -32,10 +32,4 @@ class EmailPasswordProvider implements AuthProviderBase {
   Future signOut() async {
     await _firebaseAuth.signOut();
   }
-
-  // @override
-  // Future googleSignIn() {
-  //   // TODO: implement googleSignIn
-  //   throw UnimplementedError();
-  // }
 }

@@ -9,15 +9,11 @@ class GoogleSignInProvider implements AuthProviderBase {
   GoogleSignInProvider({FirebaseAuth? firebaseAuth, GoogleSignIn? googleSignIn})
     : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance {
     _googleSignIn = googleSignIn ?? GoogleSignIn.instance;
-    // Initialize if needed (e.g., for custom client IDs)
-    // _googleSignIn.initialize(clientId: 'your-client-id.googleusercontent.com');
   }
 
   @override
   Future<User> signIn() async {
-    // Matches AuthProviderBase signature exactly (ignores params if unused)
     try {
-      // Check if authenticate is supported (required in 7.x)
       if (!_googleSignIn.supportsAuthenticate()) {
         throw FirebaseAuthException(
           code: 'unsupported-platform',
@@ -25,7 +21,6 @@ class GoogleSignInProvider implements AuthProviderBase {
         );
       }
 
-      // New method: .authenticate() instead of .signIn()
       final GoogleSignInAccount? googleUser = await _googleSignIn
           .authenticate();
 
@@ -36,11 +31,9 @@ class GoogleSignInProvider implements AuthProviderBase {
         );
       }
 
-      // Get tokens via .authorization (separate step in 7.x)
       final GoogleSignInAuthentication googleAuth = googleUser.authentication;
 
       final String? idToken = googleAuth.idToken;
-      // final String? accessToken = googleAuth.accessToken; // May be null on web
 
       if (idToken == null) {
         throw FirebaseAuthException(
@@ -49,16 +42,12 @@ class GoogleSignInProvider implements AuthProviderBase {
         );
       }
 
-      final credential = GoogleAuthProvider.credential(
-        //accessToken: accessToken, // Optional in 7.x
-        idToken: idToken,
-      );
+      final credential = GoogleAuthProvider.credential(idToken: idToken);
 
       final userCredential = await _firebaseAuth.signInWithCredential(
         credential,
       );
 
-      // Return dynamic to match base (cast to User if needed in subclasses)
       return userCredential.user!;
     } on FirebaseAuthException {
       rethrow;
@@ -72,9 +61,6 @@ class GoogleSignInProvider implements AuthProviderBase {
 
   @override
   Future<void> signOut() async {
-    await Future.wait([
-      _googleSignIn.signOut(), // Still .signOut() in 7.x
-      _firebaseAuth.signOut(),
-    ]);
+    await Future.wait([_googleSignIn.signOut(), _firebaseAuth.signOut()]);
   }
 }

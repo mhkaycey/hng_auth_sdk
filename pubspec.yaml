@@ -1,5 +1,6 @@
 name: hng_auth_sdk
-description: "A new Flutter package project."
+description: "description: A lightweight authentication SDK that provides secure firebase login, signup, signout and API utilities for HNG applications."
+
 version: 0.0.1
 homepage: https://github.com/mhkaycey/HNG_AUTH/tree/main/hng_auth_sdk
 

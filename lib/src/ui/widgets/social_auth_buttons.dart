@@ -173,7 +173,6 @@ class _SocialAuthButtonsState extends State<SocialAuthButtons> {
       await widget.authService.signInWithGoogle();
       widget.onSuccess?.call();
     } on AuthCancelledException {
-      // User cancelled, do nothing
     } on AuthException catch (e) {
       widget.onError?.call(e.message);
     } catch (e) {
@@ -191,7 +190,6 @@ class _SocialAuthButtonsState extends State<SocialAuthButtons> {
       await widget.authService.signInWithApple();
       widget.onSuccess?.call();
     } on AuthCancelledException {
-      // User cancelled, do nothing
     } on AuthException catch (e) {
       widget.onError?.call(e.message);
     } catch (e) {
@@ -242,7 +240,7 @@ class _SocialAuthButtonsState extends State<SocialAuthButtons> {
         // Apple Sign In Button
         if (widget.config.providers.apple)
           SvgBorderButton(
-            svgAsset: 'assets/icons/appleicon.svg', // Replace with your SVG
+            svgAsset: 'assets/icons/appleicon.svg',
             package: 'hng_auth_sdk',
             title: _isAppleLoading ? 'Signing in...' : 'Continue with Apple',
             onPressed: _isAppleLoading ? () {} : _handleAppleSignIn,

@@ -8,7 +8,7 @@ class AppleAuthProvider implements AuthProviderBase {
   AppleAuthProvider(this._firebaseAuth);
 
   @override
-  Future signIn([String? email, String? password]) async {
+  Future signIn() async {
     final appleCredential = await SignInWithApple.getAppleIDCredential(
       scopes: [
         AppleIDAuthorizationScopes.email,

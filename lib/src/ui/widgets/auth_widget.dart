@@ -28,7 +28,6 @@ class _AuthWidgetState extends ConsumerState<AuthWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // Create a provider for the AuthService with the widget's config
     final authServiceProvider = Provider<AuthService>((ref) {
       return AuthService(config: widget.config, ref: ref);
     });
@@ -73,15 +72,17 @@ class _AuthWidgetState extends ConsumerState<AuthWidget> {
                     }
                   },
                 ),
-                 SizedBox(height:20.0),
-                 CustomCheckbox(
-                  label:  _isLogin ? "Remember information" :  "I agree to Platform Terms of Serivce and Privacy Policy",
-                  initialValue: false,
-                  onChanged: (value) {
-                    print("Checkbox is: $value");
-                  },
-                ),
-                  
+              SizedBox(height: 20.0),
+              CustomCheckbox(
+                label: _isLogin
+                    ? "Remember information"
+                    : "I agree to Platform Terms of Serivce and Privacy Policy",
+                initialValue: false,
+                onChanged: (value) {
+                  print("Checkbox is: $value");
+                },
+              ),
+
               const SizedBox(height: 24),
 
               SocialAuthButtons(
